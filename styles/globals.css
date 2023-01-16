@@ -18,6 +18,20 @@
     color: #2196f3;
 }
 
+.navText {
+    font-family: Product Sans;
+    font-size: 15px;
+    font-weight: 900;
+    color: #5F6368;
+}
+
+.navTextHoover {
+    font-family: Product Sans;
+    font-size: 15px;
+    font-weight: 900;
+    color: #1565c0;
+}
+
 .text-title-class {
     color: #FFFF;
     font-size: 22px;
@@ -25,4 +39,34 @@
 
 .text-maestro-class {
     font-family: 13px;
+}
+
+.login-text {
+    color: #202124;
+    font-size: 24px;
+    font-family: Product Sans;
+}
+
+.nombre-user{
+    font-family: Product Sans;
+    font-size: 15px;
+}
+
+.unirme-text {
+    font-family: Product Sans;
+    font-size: 15px;
+    color: white;
+}
+
+.crear-clase{
+    font-family: Product Sans;
+    color: #5F6368;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.title-class {
+    color: #FFFF;
+    font-size: 36px;
+    padding: 0px 32px 0px 0px;
 }

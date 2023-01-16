@@ -10,7 +10,16 @@ export const classroomTheme = createTheme({
           main: '#42a5f5'
         },
         info: {
+          main: '#1e88e5'
+        },
+        white: {
           main: '#fff'
+        },
+        blue: {
+          main: '#1976d2'
+        },
+        text: {
+          main: '#5F6368'
         }
       },
       components: {
@@ -31,7 +40,7 @@ export const classroomTheme = createTheme({
             defaultProps: {
               variant: 'contained',
               disableElevation: true,
-              color: 'info',
+              color: 'white',
             },
             styleOverrides: {
               root: {
@@ -40,13 +49,5 @@ export const classroomTheme = createTheme({
               }
             }
           },
-
-          MuiCard: {
-            styleOverrides: {
-              root: {
-                borderRadius: '8px',
-              }
-            }
-          }
       }
 })

@@ -6,7 +6,7 @@ export const ClassList = ({ clases }) => {
   return (
     <Grid container>
        {
-            clases.map( clase => (
+            clases?.map( clase => (
                 <ClassCard key={ clase.nombre } clase={ clase } />
             ))
        } 
