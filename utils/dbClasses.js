@@ -11,7 +11,6 @@ export const getUserClasses = async( id ) => {
     const clases = await Class.find({ alumnos: id }).populate('maestro', 'nombre').select('materia nombre portadaImg slug -_id');
     const clasesMaestro = await Class.find({ maestro: id }).populate('maestro', 'nombre').select('materia nombre portadaImg slug -_id');
     await disconnect();
-    
 
     clases.map( clase => {
         todasLasClases.push(clase);

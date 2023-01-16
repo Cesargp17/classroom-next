@@ -52,7 +52,7 @@ const joinClass = async( req, res ) => {
             return res.status(400).json({ msg: 'Ya estas en la clase.' });
         }
 
-        clase.alumnos = [...clase.alumnos, _id];
+        clase.alumnos = [...clase.alumnos, user];
         console.log(clase.alumnos)
 
         try {
