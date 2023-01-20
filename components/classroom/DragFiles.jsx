@@ -1,5 +1,6 @@
 import { Close } from '@mui/icons-material';
 import { Box, IconButton, Modal, Typography } from '@mui/material';
+import { useSnackbar } from 'notistack';
 import React from 'react'
 import Dropzone from 'react-dropzone';
 
@@ -14,19 +15,48 @@ const style = {
     p: 4,
   };
 
-export const DragFiles = ({ icon }) => {
+export const DragFiles = ({ icon, onFilesSelected, isUploadingFiles }) => {
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const { enqueueSnackbar } = useSnackbar();
+
     const onDropFiles = ( acceptedFiles ) => {
-        console.log(acceptedFiles)
+
+        if( acceptedFiles.length === 0 ) return;
+
+        const formatosPermitidos = ['image/png', 'image/gif', 'image/jpeg']
+
+        let Images = [];
+        let Files = [];
+        let noPermitidos = [];
+
+        for (const file of acceptedFiles) {
+            if( formatosPermitidos.includes(file.type)){
+                Images.push( file );
+            } else if ( file.type.startsWith('text/plain')){
+                Files.push( file );
+            } else {
+                noPermitidos.push( file );
+                enqueueSnackbar( 'Algunos archivos no pudieron agregarse (Formato no permitido) ' , {
+                    variant: 'error',
+                    autoHideDuration: 1500,
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right'
+                    }
+                });
+            }
+        }
+        onFilesSelected(Images, Files);
+        handleClose();
     }
 
   return (
     <div>
-        <IconButton onClick={handleOpen}>
+        <IconButton disabled={ isUploadingFiles } onClick={handleOpen}>
             { icon }
         </IconButton>
 

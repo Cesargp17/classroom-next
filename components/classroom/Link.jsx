@@ -13,7 +13,7 @@ const style = {
     p: 4,
   };
 
-export const Link = ({ icon, insertLink }) => {
+export const Link = ({ icon, insertLink, isUploadingFiles }) => {
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -41,7 +41,7 @@ export const Link = ({ icon, insertLink }) => {
 
   return (
     <div>
-        <IconButton onClick={handleOpen}>
+        <IconButton disabled={isUploadingFiles} onClick={handleOpen}>
             { icon }
         </IconButton>
 

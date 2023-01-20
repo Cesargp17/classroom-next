@@ -88,7 +88,7 @@ export const Navbar = ({ diferente, slug }) => {
                   </Button>
                 </NextLink>
 
-                <NextLink href='/class/2b494a1b-46ef-4787-96f0-f5264a6a7c84' passHref legacyBehavior>
+                <NextLink href='/' passHref legacyBehavior>
                   <Button sx={{ 
                           ":hover": {
                           backgroundColor: '#eeeeee',
@@ -151,43 +151,46 @@ export const Navbar = ({ diferente, slug }) => {
           </div>
       </Toolbar>
     </AppBar>
-
-          <AppBar position="static" sx={{ display: { xs: 'block', sm: 'none' } }}>
-            <Toolbar>
-              <Box flex={ 1 } />
-                  <Box display='flex' flexDirection='row'>
-                    <NextLink href={ `/class/${ slug }` } passHref legacyBehavior>
-                      <Button sx={{ 
-                              ":hover": {
-                              backgroundColor: asPath ===  `/class/${ slug }` ? '' : '#eeeeee',
+                
+          {
+            diferente && (
+              <AppBar position="static" sx={{ display: { xs: 'block', sm: 'none' } }}>
+              <Toolbar>
+                <Box flex={ 1 } />
+                    <Box display='flex' flexDirection='row'>
+                      <NextLink href={ `/class/${ slug }` } passHref legacyBehavior>
+                        <Button sx={{ 
+                                ":hover": {
+                                backgroundColor: asPath ===  `/class/${ slug }` ? '' : '#eeeeee',
+                                height: 52,
+                                },
+                            }}
+                            style={{
+                              backgroundColor:  asPath ===  `/class/${ slug }` && '#bbdefb',
                               height: 52,
-                              },
-                          }}
-                          style={{
-                            backgroundColor:  asPath ===  `/class/${ slug }` && '#bbdefb',
-                            height: 52,
-                        }}       
-                          >
-                          <Typography className={ asPath ===  `/class/${ slug }` ? 'navTextHoover' : 'navText' }>Tablón</Typography>
-                      </Button>
-                    </NextLink>
-
-                    <NextLink href='/class/2b494a1b-46ef-4787-96f0-f5264a6a7c84' passHref legacyBehavior>
-                      <Button sx={{ 
-                              ":hover": {
-                              backgroundColor: '#eeeeee',
-                              height: 52
-                              },
                           }}       
-                          >
-                          <Typography className='navText'>Personas</Typography>
-                      </Button>
-                    </NextLink>
-                </Box>
-              <Box flex={ 1 } />
-            </Toolbar>
-          </AppBar>
-
+                            >
+                            <Typography className={ asPath ===  `/class/${ slug }` ? 'navTextHoover' : 'navText' }>Tablón</Typography>
+                        </Button>
+                      </NextLink>
+  
+                      <NextLink href='/class/2b494a1b-46ef-4787-96f0-f5264a6a7c84' passHref legacyBehavior>
+                        <Button sx={{ 
+                                ":hover": {
+                                backgroundColor: '#eeeeee',
+                                height: 52
+                                },
+                            }}       
+                            >
+                            <Typography className='navText'>Personas</Typography>
+                        </Button>
+                      </NextLink>
+                  </Box>
+                <Box flex={ 1 } />
+              </Toolbar>
+            </AppBar>
+            )
+          }
   </Box>
   )
 }

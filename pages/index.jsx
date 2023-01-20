@@ -9,8 +9,6 @@ import { Empty } from '../components/classroom/Empty'
 import { TareasPendientes } from '../components/classroom/TareasPendientes'
 import { ClassContext } from '../context/class/ClassContext'
 
-import jwt from "jsonwebtoken";
-
 const HomePage = ({ clases }) => {
 
   const { cargarClases, Clases } = useContext( ClassContext );

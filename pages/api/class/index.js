@@ -15,6 +15,8 @@ export default function (req, res) {
 
 const getClasses = async( req, res ) => {
 
+    console.log('hola')
+
     const { token } = req.token;
 
     if( !token ){
@@ -29,7 +31,7 @@ const getClasses = async( req, res ) => {
     }
 
     await connect();
-    const clases = await Class.find({ $text: _id });
+    const clases = await Class.find();
     await disconnect();
 
     if( !clases ){

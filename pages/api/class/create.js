@@ -58,6 +58,7 @@ const createClass = async( req, res ) => {
         maestro: user._id,
         slug: slug,
         codigo: slug.substring(0, 6),
+        post: [],
         alumnos: [],
     }
 

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const classroomApi = axios.create({
-    baseURL: '/api'
+    baseURL: '/api',
 });
 
 export default classroomApi;

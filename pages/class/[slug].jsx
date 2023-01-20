@@ -1,10 +1,31 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { getClassBySlug, getClassesSlug } from '../../utils/dbClasses';
 import { ClassLayout } from '../../components/layouts/ClassLayout';
 import { Avatar, Box, Card, CardActionArea, CardMedia, Grid, Typography } from '@mui/material';
 import { Create } from '../../components/classroom/Create';
+import jwt_decode from "jwt-decode";
+import classroomApi from '../../api/classroomApi';
+import { useRouter } from 'next/router';
+import { Posts } from '../../components/classroom/Posts';
+import { ClassContext } from '../../context/class/ClassContext';
 
 const ClassPage = ({ clase }) => {
+
+    const { cargarAlumnos } = useContext(ClassContext);
+
+    const onLoadAlumnos = async() => {
+        try {
+            const { data } =  await classroomApi.get(`/class/${ clase.slug }`)
+            cargarAlumnos(data)
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+    useEffect(() => {
+      onLoadAlumnos();
+    }, [])
+    
 
   return (
     <ClassLayout title={ clase.nombre } diferente={ clase.nombre } slug={ clase.slug }>
@@ -23,7 +44,7 @@ const ClassPage = ({ clase }) => {
                 </div>
             </Card>
 
-            <Create/>
+            <Create codigo={ clase.codigo } slug={ clase.slug } maestro={ clase.maestro }/>
 
         </Box>
     </ClassLayout>
@@ -61,5 +82,6 @@ export const getStaticProps = async (ctx) => {
         revalidate: 60 * 60 * 24
     }
 }
+
 
 export default ClassPage

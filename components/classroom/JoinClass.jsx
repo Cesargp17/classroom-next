@@ -7,6 +7,7 @@ import classroomApi from '../../api/classroomApi';
 import { AuthContext } from '../../context/auth/AuthContext';
 import { ClassContext } from '../../context/class/ClassContext';
 import { UIContext } from '../../context/ui/UIContext';
+import { Person } from './Person';
 
 const style = {
     position: 'absolute',
@@ -77,10 +78,8 @@ export const JoinClass = () => {
                 <Card sx={{ width: { xs: 350, md: 448 }, padding: '10px 20px', border: 1, borderColor: '#d3dddd', marginTop: 3 }}>
                     <Typography sx={{ color: '#5F6368', fontSize: 15 }}>Has iniciado sesión como</Typography>
 
-                    <Box sx={{ marginTop: 2 }} display='flex' flexDirection='row'>
-                        <Avatar sx={{ marginRight: 2 }} alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                        <Typography className='nombre-user' textTransform='uppercase' sx={{ marginBottom: 1, fontWeight: 'bold' }}> { user?.nombre } { user?.apellidos } <br/> <Typography sx={{ fontSize: 13 }} textTransform='lowercase'> { user?.email } </Typography> </Typography>
-                    </Box>
+                <Person img={!true}/>
+                    
                 </Card>
 
                 <Card sx={{ width: { xs: 350, md: 448 }, padding: '10px 20px', border: 1, borderColor: '#d3dddd', marginTop: 3 }}>

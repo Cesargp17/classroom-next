@@ -10,6 +10,23 @@ const classSchema = new Schema({
     maestro:    { type: Schema.Types.ObjectId, ref: User, required: true },
     slug:       { type: String, required: true },
     codigo:     { type: String, required: true },
+    post:       [{
+        autor: { type: Schema.Types.ObjectId, ref: User, required: true },
+        index: { type: Number, required: true, unique: true },
+        titulo: { type: String },
+        anuncio: { type: String, required: true },
+        enlaces: [{ type: String }],
+        uploadedImages: [{ type: String }],
+        isHomework: { type: String, required: true },
+
+        entregados: [{ type: Schema.Types.ObjectId, ref: User }],
+        noEntregados: [{ type: Schema.Types.ObjectId, ref: User }],
+
+        comentarios: [{
+            contenido: { type: String, required: true },
+            autor: { type: Schema.Types.ObjectId, ref: User, required: true }
+        }],
+    }],
 
     alumnos: [{ type: Schema.Types.ObjectId, ref: User, required: true }],
 

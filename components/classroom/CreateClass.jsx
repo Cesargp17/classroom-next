@@ -1,5 +1,6 @@
 import { Button, Modal, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
+import { useRouter } from 'next/router';
 import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import classroomApi from '../../api/classroomApi';
@@ -22,6 +23,8 @@ export const CreateClass = () => {
     const { OpenCreateClass, setOpenCreateClass } = useContext(UIContext);
     const { unirseClase } = useContext(ClassContext);
 
+    const router = useRouter();
+
     const [isCreatingClass, setIsCreatingClass] = useState(false);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -32,9 +35,12 @@ export const CreateClass = () => {
 
         try {
             const { data } = await classroomApi.post('/class/create', { nombre, materia, periodo });
-            setIsCreatingClass(false);
+            router.push(`/class/${ data.slug }`)
             unirseClase(data);
             setOpenCreateClass(false);
+            setIsCreatingClass(false);
+
+
         } catch (error) {
             setIsCreatingClass(false);
             console.log(error)

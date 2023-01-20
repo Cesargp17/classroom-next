@@ -35,7 +35,7 @@ export const getClassesSlug = async() => {
 export const getClassBySlug = async( slug ) => {
 
     await connect();
-    const clase = await Class.find({ slug }).select('alumnos codigo maestro materia periodo portadaImg nombre -_id slug').populate('alumnos', 'nombre apellidos');
+    const clase = await Class.find({ slug }).select('alumnos codigo maestro materia periodo portadaImg nombre -_id slug').populate('alumnos', 'nombre apellidos').populate('maestro');
     await disconnect();
 
     return JSON.parse( JSON.stringify( clase[0] ) );
