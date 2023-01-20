@@ -12,7 +12,7 @@ const classSchema = new Schema({
     codigo:     { type: String, required: true },
     post:       [{
         autor: { type: Schema.Types.ObjectId, ref: User, required: true },
-        index: { type: Number, required: true, unique: true },
+        index: { type: Number, required: true },
         titulo: { type: String },
         anuncio: { type: String, required: true },
         enlaces: [{ type: String }],
