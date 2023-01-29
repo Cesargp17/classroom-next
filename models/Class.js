@@ -12,7 +12,7 @@ const classSchema = new Schema({
     codigo:     { type: String, required: true },
     post:       [{
         autor: { type: Schema.Types.ObjectId, ref: User, required: true },
-        index: { type: Number, required: true },
+        numerador: { type: Number, required: true },
         titulo: { type: String },
         anuncio: { type: String, required: true },
         enlaces: [{ type: String }],
@@ -23,7 +23,7 @@ const classSchema = new Schema({
         noEntregados: [{ type: Schema.Types.ObjectId, ref: User }],
 
         comentarios: [{
-            contenido: { type: String, required: true },
+            texto: { type: String, required: true },
             autor: { type: Schema.Types.ObjectId, ref: User, required: true }
         }],
     }],

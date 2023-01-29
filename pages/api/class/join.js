@@ -53,7 +53,6 @@ const joinClass = async( req, res ) => {
         }
 
         clase.alumnos = [...clase.alumnos, user];
-        console.log(clase.alumnos)
 
         try {
             await connect();

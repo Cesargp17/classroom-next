@@ -88,13 +88,17 @@ export const Navbar = ({ diferente, slug }) => {
                   </Button>
                 </NextLink>
 
-                <NextLink href='/' passHref legacyBehavior>
+                <NextLink href={ `/class/${ slug }/alumnos` } passHref legacyBehavior>
                   <Button sx={{ 
                           ":hover": {
-                          backgroundColor: '#eeeeee',
+                          backgroundColor: asPath ===  `/class/${ slug }/alumnos` ? '' : '#eeeeee',
                           height: 52
                           },
-                      }}       
+                      }} 
+                      style={{
+                        backgroundColor:  asPath ===  `/class/${ slug }/alumnos` && '#bbdefb',
+                        height: 52,
+                    }}          
                       >
                       <Typography className='navText'>Personas</Typography>
                   </Button>

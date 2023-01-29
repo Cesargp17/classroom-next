@@ -52,7 +52,8 @@ const createPost = async( req, res ) => {
 
     await connect();
     const clase = await Class.findOne({ codigo });
-    const index = clase.post.length;
+    const numerador = clase.post.length;
+    console.log(clase.post.length)
     await disconnect();
 
     if( !clase ) return res.status(400).json({ msg: 'No existe la clase' });
@@ -62,7 +63,7 @@ const createPost = async( req, res ) => {
     if( user._id === claseParseada.maestro) {
 
         const nuevoPost = {
-            autor: user._id, index, titulo, anuncio, enlaces, uploadedImages, isHomework
+            autor: user._id, numerador, titulo, anuncio, enlaces, uploadedImages, isHomework
         };
 
         clase.post = [...clase.post, nuevoPost];
@@ -84,7 +85,7 @@ const createPost = async( req, res ) => {
         }
 
         const nuevoPost = {
-            autor: user._id, index, titulo, anuncio, enlaces, uploadedImages, isHomework
+            autor: user._id, numerador, titulo, anuncio, enlaces, uploadedImages, isHomework
         };
 
         clase.post = [...clase.post, nuevoPost];

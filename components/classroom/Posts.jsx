@@ -1,5 +1,5 @@
-import { Assignment, AssignmentOutlined, HomeWorkOutlined, Send } from '@mui/icons-material';
-import { Avatar, Box, Card, CardActionArea, Divider, Grid, IconButton, Skeleton, TextField, Typography } from '@mui/material';
+import { Assignment, AssignmentOutlined, HomeWorkOutlined, Person2Outlined, Person2Rounded, Person2TwoTone, PersonSearchOutlined, Send } from '@mui/icons-material';
+import { Avatar, Box, Button, Card, CardActionArea, Divider, Grid, IconButton, Skeleton, TextField, Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react'
 import classroomApi from '../../api/classroomApi';
@@ -14,12 +14,31 @@ export const Posts = ({ slug, maestro }) => {
     const { cargarAnuncios, hacerComentario, Posts, limpiarAnuncios, Alumnos } = useContext( ClassContext );
     const { user } = useContext(AuthContext);
 
+    let formData = {};
+
+    if( Posts ){
+        for( let i = 0; i<= Posts.length; i++ ){
+            if( Posts[i] === undefined ) break;
+                 formData[Posts[i].anuncio] = ''
+            }
+        }
+
+
     const [isCreatingComment, setIsCreatingComment] = useState(false);
     const [isLoadingPost, setIsLoadingPost] = useState(false);
+    const [texto, setTexto] = useState('');
+    const [isExpandedComments, setIsExpandedComments] = useState(false);
+
+    const onInputChange = (e) => {
+        setContenido({
+            [e.target.name]: e.target.value
+          });
+          setTexto(e.target.value);
+    } 
 
     const { enqueueSnackbar } = useSnackbar();
 
-    const [contenido, setContenido] = useState('');
+    const [contenido, setContenido] = useState( formData );
 
     const onGetPostsClass = async() => {
         setIsLoadingPost(true);
@@ -44,19 +63,22 @@ export const Posts = ({ slug, maestro }) => {
 
     const onCreateComment = async( anuncio ) => {
 
-        if( contenido.length === 0 ) return;
+        if( texto.length === 0 ) return;
 
         setIsCreatingComment(true);
 
         try {
-            const { data } = await classroomApi.post('/class/posts/comentarios', { contenido, anuncio });
-            const { contenido: mensaje, autor } = data;
+            const { data } = await classroomApi.post('/class/posts/comentarios', { texto, anuncio });
+            console.log(data)
+
+            const { texto: mensaje, autor } = data;
 
             const comentario = {
                 mensaje, autor, anuncio
             };
             hacerComentario( comentario );
-            setContenido('');
+            setContenido( formData );
+            setTexto('')
             setIsCreatingComment(false);
         } catch (error) {
             enqueueSnackbar( 'No fue posible realizar el comentario...' , {
@@ -67,11 +89,11 @@ export const Posts = ({ slug, maestro }) => {
                     horizontal: 'right'
                 }
             });
-            setContenido('');
+            setContenido( formData );
+            setTexto('')
             setIsCreatingComment(false);
             console.log(error)
         }
-
     }
 
     useEffect(() => {
@@ -157,9 +179,22 @@ export const Posts = ({ slug, maestro }) => {
                             </Box>
                         </Box>
                         <Divider/>
+                        <Box>
+                            <Button sx={{ 
+                                    ":hover": {
+                                    backgroundColor: '#f6fafe',
+                                    transition: 'all 0.3s ease-in-out'
+                                    },
+                                    mt: 2 
+                                }}
+                                onClick={ () => setIsExpandedComments(!isExpandedComments) } 
+                                startIcon={ <Person2Outlined color='#3c4043' /> }>
+                                <Typography className='textComment'>{ post.comentarios.length === 1 ? '1 comentario de clase' : post.comentarios.length === 0 ? '' : `${ post.comentarios.length } comentarios de clase` }</Typography>
+                            </Button>
+                        </Box>
                         {
                             post.comentarios?.length > 0 && (
-                                post.comentarios.map( comentario => (
+                                 post.comentarios.map( comentario => (
                                     <Box key={ comentario.contenido ? comentario.contenido : comentario.mensaje } sx={{ marginBottom: 1, marginTop: 3, marginLeft: 2 }}>
                                         <Box display='flex' flexDirection='row'>
                                             <Avatar sx={{ width: 30, height: 30, marginRight: 1 }}/>
@@ -172,7 +207,7 @@ export const Posts = ({ slug, maestro }) => {
                                                 : Alumnos.find( alumno => alumno._id === comentario.autor)?.apellidos }
                                             </Typography>
                                         </Box>
-                                        <Typography className='tarea-text2' sx={{ marginLeft: 4 }}>{ comentario.contenido ? comentario.contenido : comentario.mensaje }</Typography><br />
+                                        <Typography className='tarea-text2' sx={{ marginLeft: 4 }}>{ comentario.texto ? comentario.texto : comentario.mensaje }</Typography><br />
                                     </Box>
                                 ))
                                 )
@@ -188,9 +223,10 @@ export const Posts = ({ slug, maestro }) => {
                                         <Send sx={{ fontSize: 15 }} color='blue'/>
                                     </IconButton>
                                 }}
-                                value={ contenido }
-                                onChange={ (e) => setContenido(e.target.value) }
-                                multiline 
+                                value={ contenido.anuncio }
+                                onChange={ onInputChange }
+                                name={ post.anuncio }
+                                multiline
                                 size='small' 
                                 className="TextField-without-border-radius" 
                                 sx={{ borderRadius: 6 }} 

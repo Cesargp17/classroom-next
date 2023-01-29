@@ -101,3 +101,16 @@
 .TextField-without-border-radius fieldset {
     border-radius: 50px;
   }
+
+.alumnosText{
+    color: #c26401;
+    font-size: 32px;
+    font-family: Open Sans;
+}
+
+.textComment {
+    font-family: Open Sans;
+    font-size: 13px;
+    font-weight: 900;
+    color: #3c4043;
+}

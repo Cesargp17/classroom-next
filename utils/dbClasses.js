@@ -38,7 +38,20 @@ export const getClassBySlug = async( slug ) => {
     const clase = await Class.find({ slug }).select('alumnos codigo maestro materia periodo portadaImg nombre -_id slug').populate('alumnos', 'nombre apellidos').populate('maestro');
     await disconnect();
 
+    console.log(clase)
+
     return JSON.parse( JSON.stringify( clase[0] ) );
+}
+
+export const getMaestro = async( slug ) => {
+
+    await connect();
+    const maestro = await Class.findOne({ slug }).select('nombre maestro slug').populate('maestro');
+    await disconnect();
+
+    console.log(maestro)
+
+    return JSON.parse( JSON.stringify( maestro ) );
 }
 
 // http://localhost:3000/class/2b494a1b-46ef-4787-96f0-f5264a6a7c84
